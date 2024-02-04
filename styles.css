@@ -10,10 +10,24 @@
 	}
 }
 */
+.content {
+    display: none;
+}
+
+#gallery.loaded img {
+    width: 100%;
+    height: auto;
+}
+
+.content.active {
+    display: block;
+}
+
 @font-face {
     font-family: 'Kong';
     src: url('kongtext.ttf') format('truetype');
 }
+
 body { 
     margin: 0;
     padding: 0;
@@ -63,7 +77,7 @@ footer {
     font-size: xx-small;
     text-align: center;
     padding: 20px;
-    position: relative;
+    position: fixed;
     bottom: 0;
     width: 100%;
 }
