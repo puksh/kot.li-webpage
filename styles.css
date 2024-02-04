@@ -1,11 +1,32 @@
-body {
-    font-family: Arial, sans-serif;
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+@font-face {
+    font-family: 'Kong';
+    src: url('kongtext.ttf') format('truetype');
+}
+body { 
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
+    font-family: Verdana, sans-serif;
+	color: #fff;
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	font-size: 150%;
+	height:100%;
 }
 header {
-    background-color: #333;
+    background-color: #45885b;
+    font-family: 'Kong';
     color: #fff;
     padding: 20px;
 }
@@ -31,16 +52,16 @@ nav ul li a {
     max-width: 1200px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 footer {
-    background-color: #333;
+    font-family: 'Kong';
     color: #fff;
+    font-size: xx-small;
     text-align: center;
     padding: 20px;
-    position: fixed;
+    position: relative;
     bottom: 0;
     width: 100%;
 }
