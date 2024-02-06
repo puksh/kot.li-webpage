@@ -23,17 +23,38 @@ function loadGalleryImages() {
         return; // Images already loaded
     }
 
-    // Assuming images are stored in the 'images' folder
-    var imagesFolder = 'images/';
-    var numImages = 1; // Number of images in the folder
-
-    // Loop through each image and create an <img> element
-    for (var i = 1; i <= numImages; i++) {
-        var img = document.createElement('img');
-        img.src = imagesFolder + 'image' + i + '.jpg'; // Adjust the filename pattern as needed
-        galleryContainer.appendChild(img);
+    // Check if image data is already stored in localStorage
+    var imageData = localStorage.getItem('galleryImages');
+    if (imageData) {
+        // If data is found, parse it and load images
+        imageData = JSON.parse(imageData);
+        loadImages(imageData);
+    } else {
+        // If no data is found, load images from a default source and store them in localStorage
+        var defaultImages = [
+            { src: 'images/image1.jpg', source: 'idk' }
+            //add more
+        ];
+        localStorage.setItem('galleryImages', JSON.stringify(defaultImages));
+        loadImages(defaultImages);
     }
 
-    // Add 'loaded' class to indicate that images have been loaded
-    galleryContainer.classList.add('loaded');
+    // Function to load images based on image data
+    function loadImages(images) {
+        images.forEach(function(imageData) {
+            var link = document.createElement('a');
+            link.href = imageData.source;
+            link.target = '_blank'; // Open link in a new tab
+
+            var img = document.createElement('img');
+            img.src = imageData.src;
+            img.alt = 'Image'; // Add alt text as needed
+
+            link.appendChild(img);
+            galleryContainer.appendChild(link);
+        });
+
+        // Add 'loaded' class to indicate that images have been loaded
+        galleryContainer.classList.add('loaded');
+    }
 }
