@@ -10,6 +10,17 @@
 	}
 }
 */
+/* CSS HEX */
+*{
+--pakistan-green: #143601ff;
+--pakistan-green-2: #1a4301ff;
+--dark-moss-green: #245501ff;
+--avocado: #538d22ff;
+--asparagus: #73a942ff;
+--pistachio: #aad576ff;
+}
+
+
 .content {
     display: none;
 }
@@ -34,14 +45,14 @@ body {
     font-family: Verdana, sans-serif;
 	color: #fff;
 	/*background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);*/
-    background: #000;
+    background: #1a4301ff;
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
 	font-size: 150%;
 	height:100%;
 }
 header {
-    background-color: #45885b;
+    background-color: #538d22ff;
     font-family: 'Kong';
     color: #fff;
     padding: 20px;
