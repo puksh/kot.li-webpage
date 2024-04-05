@@ -16,42 +16,26 @@ document.querySelectorAll('nav a').forEach(function(link) {
     });
 });
 
-// Function to load images into the gallery section
 function loadGalleryImages() {
     var galleryContainer = document.getElementById('gallery');
     if (galleryContainer.classList.contains('loaded')) {
         return; // Images already loaded
     }
 
-    // Check if image data is already stored in localStorage
-    var imageData = localStorage.getItem('galleryImages');
-    if (imageData) {
-        // If data is found, parse it and load images
-        imageData = JSON.parse(imageData);
-        loadImages(imageData);
-    } else {
-        // If no data is found, load images from a default source and store them in localStorage
-        var defaultImages = [
-            { src: 'images/image1.jpg', source: 'idk' }
-            //add more
-        ];
-        localStorage.setItem('galleryImages', JSON.stringify(defaultImages));
-        loadImages(defaultImages);
-    }
+    // Load the generated image list
+    var script = document.createElement('script');
+    script.src = 'imageList.js';
+    script.onload = function() {
+        loadImages(imageList);
+    };
+    document.head.appendChild(script);
 
     // Function to load images based on image data
     function loadImages(images) {
-        images.forEach(function(imageData) {
-            var link = document.createElement('a');
-            link.href = imageData.source;
-            link.target = '_blank'; // Open link in a new tab
-
+        images.forEach(function(imageSrc) {
             var img = document.createElement('img');
-            img.src = imageData.src;
-            img.alt = 'Image'; // Add alt text as needed
-
-            link.appendChild(img);
-            galleryContainer.appendChild(link);
+            img.src = imageSrc;
+            galleryContainer.appendChild(img); // Append the image to the container
         });
 
         // Add 'loaded' class to indicate that images have been loaded
