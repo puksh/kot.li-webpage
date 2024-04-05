@@ -118,3 +118,7 @@ footer {
     padding: 1rem;
     border-radius: 60rem;
 }
+img {
+    height: 50px;
+    width: auto;
+}
