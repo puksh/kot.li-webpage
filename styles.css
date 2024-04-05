@@ -39,20 +39,39 @@
     src: url('kongtext.ttf') format('truetype');
 }
 
+h1 {
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 50px;
+}
+
+h2 {
+    text-shadow: 2px 2px 4px #000000;    
+    font-weight: bolder;
+    text-align-last: center;
+}
+
+p {
+    font-size: 12px;
+}
+
+a {
+    font-size: 25px;
+}
+
 body { 
     margin: 0;
     padding: 0;
-    font-family: Verdana, sans-serif;
+    font-family: Kong, sans-serif;
 	color: #fff;
 	/*background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);*/
-    background: #1a4301ff;
+    background: var(--pakistan-green-2);
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
-	font-size: 150%;
-	height:100%;
+	font-size: 100%;
+	height: 100%;
 }
 header {
-    background-color: #538d22ff;
+    background-color: var(--avocado);
     font-family: 'Kong';
     color: #fff;
     padding: 20px;
@@ -78,9 +97,10 @@ nav ul li a {
 .container {
     max-width: 1200px;
     margin: 20px auto;
-    padding: 20px;
-    border-radius: 5px;
+    padding: 55px;
+    border-radius: 60rem;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    background: var(--pakistan-green);
 }
 footer {
     font-family: 'Kong';
@@ -91,4 +111,10 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+.navbar{
+    background-color: var(--pistachio);
+    padding: 1rem;
+    border-radius: 60rem;
 }
