@@ -101,11 +101,14 @@ footer {
 font-family:kong;
 color:#fff;
 font-size:xx-small;
-text-align:center;
-padding:20px;
+text-align:left;
+padding:9px;
 position:fixed;
 bottom:0;
-width:100%
+width:auto;
+background-color:var(--pistachio);
+text-shadow:2px 2px 4px #000;
+border-radius:60rem
 }
 img{
 max-height: auto;
