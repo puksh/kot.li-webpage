@@ -19,7 +19,7 @@ document.querySelectorAll('nav a').forEach(function(link) {
 function loadGalleryImages() {
     var galleryContainer = document.getElementById('gallery');
     if (galleryContainer.classList.contains('loaded')) {
-        return; // Images already loaded
+        return;
     }
 
     // Load the generated image list
