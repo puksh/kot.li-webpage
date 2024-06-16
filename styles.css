@@ -82,3 +82,12 @@ max-height: auto;
 max-width: 200px;
 }
 
+footer {
+    position: fixed; /* Fixed positioning so it stays in place */
+    bottom: 20px; /* Distance from the bottom of the viewport */
+    right: 20px; /* Distance from the right of the viewport */
+    z-index: 1000; /* Ensure it stays on top of other content */
+    background-color: rgba(0, 0, 0, 0.5); /* Example background color */
+    color: #fff; /* Example text color */
+    padding: 10px 20px; /* Example padding */
+}
