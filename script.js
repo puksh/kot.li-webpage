@@ -17,7 +17,7 @@ document.querySelectorAll('nav a').forEach(function(link) {
 });
 
 function loadGalleryImages() {
-    var galleryContainer = document.getElementById('gallery');
+    var galleryContainer = document.getElementById('galleryContainer');
     if (galleryContainer.classList.contains('loaded')) {
         return;
     }
@@ -30,15 +30,26 @@ function loadGalleryImages() {
     };
     document.head.appendChild(script);
 
-    // Function to load images based on image data
     function loadImages(images) {
-        images.forEach(function(imageSrc) {
+        const galleryContainer = document.getElementById('galleryContainer');
+        const imagesPerColumn = 3;
+        const numberOfColumns = Math.ceil(images.length / imagesPerColumn);
+    
+        const columns = [];
+        for (let i = 0; i < numberOfColumns; i++) {
+            const column = document.createElement('div');
+            column.classList.add('column');
+            galleryContainer.appendChild(column);
+            columns.push(column);
+        }
+    
+        images.forEach((imageSrc, index) => {
             var img = document.createElement('img');
             img.src = imageSrc;
-            galleryContainer.appendChild(img); // Append the image to the container
+            img.classList.add('imgGrooby');
+            columns[index % numberOfColumns].appendChild(img);
         });
-
-        // Add 'loaded' class to indicate that images have been loaded
+    
         galleryContainer.classList.add('loaded');
     }
 }
