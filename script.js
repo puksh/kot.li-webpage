@@ -1,8 +1,8 @@
 // Function to toggle the 'active' class on sections
-document.querySelectorAll('nav a').forEach(function(link) {
-    link.addEventListener('click', function(event) {
+document.querySelectorAll('nav button').forEach(function(button) {
+    button.addEventListener('click', function(event) {
         event.preventDefault();
-        var sectionId = this.getAttribute('href').slice(1);
+        var sectionId = this.getAttribute('data-target');
         document.querySelectorAll('.content').forEach(function(section) {
             if (section.id === sectionId) {
                 section.classList.add('active');
