@@ -16,6 +16,16 @@ document.querySelectorAll('nav button').forEach(function(button) {
     });
 });
 
+const startButton = document.getElementById('startbuttonImg');
+
+    startButton.addEventListener('click', function() {
+        this.classList.toggle('clicked');
+    });
+
+    startButton.addEventListener('mouseleave', function() {
+        this.classList.remove('clicked');
+    });
+
 function loadGalleryImages() {
     var galleryContainer = document.getElementById('galleryContainer');
     if (galleryContainer.classList.contains('loaded')) {
