@@ -133,3 +133,54 @@ max-width: 200px;
   .startbutton.clicked img {
     transform: translateY(-54px);
 }
+
+
+/*WINDOWS CREATING FUNCTION END*/
+
+.window {
+  position: absolute;
+  width: 300px;
+  min-height: 200px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 100;
+}
+
+.title-bar {
+  background-color: #ddd;
+  padding: 8px;
+  cursor: move;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0 8px;
+}
+
+.content {
+  padding: 16px;
+  overflow: auto; /* Enable scrollbars if content exceeds window size */
+  resize: both; /* Enable resizing */
+  overflow: hidden; /* Hide overflow during resize */
+  min-width: 100px; /* Minimum width */
+  min-height: 50px; /* Minimum height */
+}
+
+.resize-handle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  bottom: 0;
+  right: 0;
+  cursor: se-resize; /* Resize cursor */
+  background-color: #ddd;
+}
+
+/*WINDOWS CREATING FUNCTION END*/
