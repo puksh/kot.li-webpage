@@ -1,3 +1,5 @@
+/* Start Button Script */
+
 const startButton = document.getElementById('startbuttonImg');
 
     startButton.addEventListener('click', function() {
@@ -12,161 +14,236 @@ function loadGalleryImages() {
     var galleryContainer = document.getElementById('galleryContainer');
     if (galleryContainer.classList.contains('loaded')) {
         return;
-    }
+    }}
 
-    // Load the generated image list
-    var script = document.createElement('script');
-    script.src = 'imageList.js';
-    script.onload = function() {
-        loadImages(imageList);
-    };
-    document.head.appendChild(script);
-
-    function loadImages(images) {
-        const galleryContainer = document.getElementById('galleryContainer');
-        const imagesPerColumn = 3;
-        const numberOfColumns = Math.ceil(images.length / imagesPerColumn);
-    
-        const columns = [];
-        for (let i = 0; i < numberOfColumns; i++) {
-            const column = document.createElement('div');
-            column.classList.add('column');
-            galleryContainer.appendChild(column);
-            columns.push(column);
-        }
-    
-        images.forEach((imageSrc, index) => {
-            var img = document.createElement('img');
-            img.src = imageSrc;
-            img.classList.add('imgGrooby');
-            columns[index % numberOfColumns].appendChild(img);
-        });
-    
-        galleryContainer.classList.add('loaded');
-    }
-}
+/* Start Button Script END*/
 
 /*WINDOWS CREATING FUNCTION*/
 
 
-// Initialize variables for tracking mouse position and window position
-let isDragging = false;
-let isResizing = false;
-let currentWindow = null;
-let initialX;
-let initialY;
-let offsetX = 0;
-let offsetY = 0;
+document.getElementById('create-window-button').addEventListener('click', () => createWindow('App1'));
 
-// Function to create a new window
-function createWindow() {
-  // Create window elements
-  const windowDiv = document.createElement('div');
-  windowDiv.classList.add('window');
+let windowCount = 0;
 
-  const titleBar = document.createElement('div');
-  titleBar.classList.add('title-bar');
-  titleBar.textContent = 'New Window';
+function createWindow(appName) {
+  windowCount++;
+  const container = document.getElementById('container');
+  const windowElement = document.createElement('div');
+  windowElement.className = 'window';
+  windowElement.id = `window-${windowCount}`;
+  
+  const header = document.createElement('div');
+  header.className = 'header';
 
-  const closeBtn = document.createElement('button');
-  closeBtn.classList.add('close-btn');
-  closeBtn.innerHTML = '&times;';
-  closeBtn.addEventListener('click', onCloseClick);
+  const title = document.createElement('span');
+  title.innerText = appName;
+  header.appendChild(title);
 
-  titleBar.appendChild(closeBtn);
-  windowDiv.appendChild(titleBar);
+  const buttons = document.createElement('div');
+  buttons.className = 'header-buttons';
 
-  const contentDiv = document.createElement('div');
-  contentDiv.classList.add('content');
-  contentDiv.innerHTML = '<p>New window content goes here.</p>';
-  windowDiv.appendChild(contentDiv);
+  const minimizeButton = document.createElement('button');
+  minimizeButton.innerHTML = '_';
+  minimizeButton.onclick = () => minimizeWindow(windowElement);
+  buttons.appendChild(minimizeButton);
 
-  const resizeHandle = document.createElement('div');
-  resizeHandle.classList.add('resize-handle');
-  windowDiv.appendChild(resizeHandle);
+  const maximizeButton = document.createElement('button');
+  maximizeButton.innerHTML = '&#9723;';
+  maximizeButton.onclick = () => maximizeWindow(windowElement);
+  buttons.appendChild(maximizeButton);
 
-  // Append window to the body
-  document.body.appendChild(windowDiv);
+  const closeButton = document.createElement('button');
+  closeButton.innerHTML = 'x';
+  closeButton.onclick = () => closeWindow(windowElement);
+  buttons.appendChild(closeButton);
 
-  // Make window draggable
-  titleBar.addEventListener('mousedown', onMouseDown);
-  resizeHandle.addEventListener('mousedown', onMouseDown);
+  header.appendChild(buttons);
+  windowElement.appendChild(header);
 
-  // Set initial position (centered)
-  const centerX = (window.innerWidth - windowDiv.offsetWidth) / 2;
-  const centerY = (window.innerHeight - windowDiv.offsetHeight) / 2;
-  windowDiv.style.left = `${centerX}px`;
-  windowDiv.style.top = `${centerY}px`;
+  const content = document.createElement('div');
+  content.className = 'content';
+  windowElement.appendChild(content);
+
+  container.appendChild(windowElement);
+
+  makeDraggable(windowElement, header);
+  makeResizable(windowElement);
+
+  loadApp(appName, content);
 }
 
-// Function to handle mouse down event
-function onMouseDown(event) {
-  if (event.target.classList.contains('title-bar')) {
+function makeDraggable(element, handle) {
+  let isDragging = false;
+  let offsetX, offsetY;
+
+  handle.addEventListener('mousedown', (event) => {
     isDragging = true;
-    currentWindow = this.parentNode;
+    offsetX = event.clientX - element.offsetLeft;
+    offsetY = event.clientY - element.offsetTop;
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  });
 
-    // Calculate initial mouse position
-    initialX = event.clientX - offsetX;
-    initialY = event.clientY - offsetY;
-
-    // Set window to topmost z-index while dragging
-    currentWindow.style.zIndex = 101;
-  } else if (event.target.classList.contains('resize-handle')) {
-    isResizing = true;
-    currentWindow = this.parentNode;
-
-    // Calculate initial mouse position
-    initialX = event.clientX;
-    initialY = event.clientY;
+  function onMouseMove(event) {
+    if (isDragging) {
+      element.style.left = `${event.clientX - offsetX}px`;
+      element.style.top = `${event.clientY - offsetY}px`;
+    }
   }
-}
 
-// Function to handle mouse move event
-function onMouseMove(event) {
-  if (isDragging) {
-    // Calculate new window position
-    offsetX = event.clientX - initialX;
-    offsetY = event.clientY - initialY;
-
-    // Apply new position
-    currentWindow.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-  } else if (isResizing) {
-    // Calculate new window size
-    const width = initialX - event.clientX + currentWindow.offsetWidth;
-    const height = initialY - event.clientY + currentWindow.offsetHeight;
-
-    // Apply new size
-    currentWindow.style.width = `${width}px`;
-    currentWindow.style.height = `${height}px`;
-  }
-}
-
-// Function to handle mouse up event
-function onMouseUp() {
-  if (isDragging || isResizing) {
+  function onMouseUp() {
     isDragging = false;
-    isResizing = false;
-
-    // Reset z-index
-    currentWindow.style.zIndex = 100;
-
-    // Save window position and size
-    // (optional: you might want to save the position and size in local storage or elsewhere)
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
   }
 }
 
-// Function to handle window close button
-function onCloseClick() {
-  const windowToClose = this.parentNode.parentNode;
-  windowToClose.remove();
+function makeResizable(element) {
+  let isResizing = false;
+  let initialWidth, initialHeight, initialX, initialY;
+  let currentResizeSide = null;
+
+  element.addEventListener('mousemove', (event) => {
+    const rect = element.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+    const margin = 10;
+
+    if (mouseX < margin && mouseY < margin) {
+      element.style.cursor = 'nwse-resize';
+      currentResizeSide = 'top-left';
+    } else if (mouseX < margin && mouseY > rect.height - margin) {
+      element.style.cursor = 'nesw-resize';
+      currentResizeSide = 'bottom-left';
+    } else if (mouseX > rect.width - margin && mouseY < margin) {
+      element.style.cursor = 'nesw-resize';
+      currentResizeSide = 'top-right';
+    } else if (mouseX > rect.width - margin && mouseY > rect.height - margin) {
+      element.style.cursor = 'nwse-resize';
+      currentResizeSide = 'bottom-right';
+    } else if (mouseX < margin) {
+      element.style.cursor = 'ew-resize';
+      currentResizeSide = 'left';
+    } else if (mouseX > rect.width - margin) {
+      element.style.cursor = 'ew-resize';
+      currentResizeSide = 'right';
+    } else if (mouseY < margin) {
+      element.style.cursor = 'ns-resize';
+      currentResizeSide = 'top';
+    } else if (mouseY > rect.height - margin) {
+      element.style.cursor = 'ns-resize';
+      currentResizeSide = 'bottom';
+    } else {
+      element.style.cursor = 'default';
+      currentResizeSide = null;
+    }
+  });
+
+  element.addEventListener('mousedown', (event) => {
+    if (currentResizeSide) {
+      isResizing = true;
+      initialWidth = element.offsetWidth;
+      initialHeight = element.offsetHeight;
+      initialX = event.clientX;
+      initialY = event.clientY;
+      document.addEventListener('mousemove', onResize);
+      document.addEventListener('mouseup', stopResize);
+    }
+  });
+
+  function onResize(event) {
+    if (isResizing) {
+      switch (currentResizeSide) {
+        case 'top-left':
+          element.style.width = `${initialWidth - (event.clientX - initialX)}px`;
+          element.style.height = `${initialHeight - (event.clientY - initialY)}px`;
+          element.style.left = `${event.clientX}px`;
+          element.style.top = `${event.clientY}px`;
+          break;
+        case 'top-right':
+          element.style.width = `${initialWidth + (event.clientX - initialX)}px`;
+          element.style.height = `${initialHeight - (event.clientY - initialY)}px`;
+          element.style.top = `${event.clientY}px`;
+          break;
+        case 'bottom-left':
+          element.style.width = `${initialWidth - (event.clientX - initialX)}px`;
+          element.style.height = `${initialHeight + (event.clientY - initialY)}px`;
+          element.style.left = `${event.clientX}px`;
+          break;
+        case 'bottom-right':
+          element.style.width = `${initialWidth + (event.clientX - initialX)}px`;
+          element.style.height = `${initialHeight + (event.clientY - initialY)}px`;
+          break;
+        case 'left':
+          element.style.width = `${initialWidth - (event.clientX - initialX)}px`;
+          element.style.left = `${event.clientX}px`;
+          break;
+        case 'right':
+          element.style.width = `${initialWidth + (event.clientX - initialX)}px`;
+          break;
+        case 'top':
+          element.style.height = `${initialHeight - (event.clientY - initialY)}px`;
+          element.style.top = `${event.clientY}px`;
+          break;
+        case 'bottom':
+          element.style.height = `${initialHeight + (event.clientY - initialY)}px`;
+          break;
+      }
+    }
+  }
+
+  function stopResize() {
+    isResizing = false;
+    currentResizeSide = null;
+    element.style.cursor = 'default';
+    document.removeEventListener('mousemove', onResize);
+    document.removeEventListener('mouseup', stopResize);
+  }
 }
 
-// Event listener for creating windows on button click
-const createWindowBtn = document.getElementById('createWindowBtn');
-createWindowBtn.addEventListener('click', createWindow);
+function minimizeWindow(element) {
+  element.classList.toggle('minimized');
+}
 
-// Global event listeners for mouse move and up events
-document.addEventListener('mousemove', onMouseMove);
-document.addEventListener('mouseup', onMouseUp);
+function maximizeWindow(element) {
+  if (element.classList.contains('maximized')) {
+    element.classList.remove('maximized');
+    element.style.width = `${element.initialWidth}px`;
+    element.style.height = `${element.initialHeight}px`;
+    element.style.left = `${element.initialLeft}px`;
+    element.style.top = `${element.initialTop}px`;
+  } else {
+    element.classList.add('maximized');
+    element.initialWidth = element.offsetWidth;
+    element.initialHeight = element.offsetHeight;
+    element.initialLeft = element.offsetLeft;
+    element.initialTop = element.offsetTop;
+    element.style.width = '100%';
+    element.style.height = '100%';
+    element.style.left = '0';
+    element.style.top = '0';
+  }
+}
+
+function closeWindow(element) {
+  element.remove();
+}
+
+function loadApp(appName, container) {
+  const appEvent = new CustomEvent('loadApp', { detail: { appName, container } });
+  document.dispatchEvent(appEvent);
+}
+
+// Event listener for loading different apps
+document.addEventListener('loadApp', (event) => {
+  const { appName, container } = event.detail;
+  if (window[appName]) {
+    window[appName](container);
+  } else {
+    container.innerText = `Application ${appName} not found.`;
+  }
+});
+
+
 
 /*WINDOWS CREATING FUNCTION END*/
