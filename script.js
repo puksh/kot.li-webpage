@@ -21,28 +21,55 @@ function loadGalleryImages() {
 /*WINDOWS CREATING FUNCTION*/
 
 
-document.getElementById('create-window-button').addEventListener('click', () => createWindow('App1'));
-
-let windowCount = 0;
-
-function createWindow(appName) {
-  windowCount++;
-  const container = document.getElementById('container');
-  const windowElement = document.createElement('div');
-  windowElement.className = 'window';
-  windowElement.id = `window-${windowCount}`;
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM fully loaded and parsed');
+    createDesktopIcon('Gallery', 'gallery-icon.png', 'Gallery');
+  createDesktopIcon('Shower', 'shower-icon.png', 'Shower');
+  });
   
-  const header = document.createElement('div');
-  header.className = 'header';
-
-  const title = document.createElement('span');
-  title.innerText = appName;
-  header.appendChild(title);
-
-  const buttons = document.createElement('div');
-  buttons.className = 'header-buttons';
-
-  const minimizeButton = document.createElement('button');
+  let windowCount = 0;
+  
+  function createDesktopIcon(appName, iconSrc, displayName) {
+    const desktop = document.getElementById('desktop');
+    const icon = document.createElement('div');
+    icon.className = 'desktop-icon';
+  
+    const img = document.createElement('img');
+    img.src = iconSrc;
+    icon.appendChild(img);
+  
+    const span = document.createElement('span');
+    span.innerText = displayName;
+    icon.appendChild(span);
+  
+    // Add event listener for double-click
+    icon.addEventListener('dblclick', () => {
+      console.log(`Double-click detected on ${appName} icon`);
+      createWindow(appName);
+    });
+  
+    desktop.appendChild(icon);
+  }
+  
+  function createWindow(appName) {
+    console.log(`Creating window for ${appName}`);
+    windowCount++;
+    const container = document.getElementById('container');
+    const windowElement = document.createElement('div');
+    windowElement.className = 'window';
+    windowElement.id = `window-${windowCount}`;
+  
+    const header = document.createElement('div');
+    header.className = 'header';
+  
+    const title = document.createElement('span');
+    title.innerText = appName;
+    header.appendChild(title);
+  
+    const buttons = document.createElement('div');
+    buttons.className = 'header-buttons';
+  
+    const minimizeButton = document.createElement('button');
   minimizeButton.innerHTML = '_';
   minimizeButton.onclick = () => minimizeWindow(windowElement);
   buttons.appendChild(minimizeButton);
@@ -194,18 +221,18 @@ function makeResizable(element) {
 
   function stopResize() {
     isResizing = false;
-    currentResizeSide = null;
-    element.style.cursor = 'default';
     document.removeEventListener('mousemove', onResize);
     document.removeEventListener('mouseup', stopResize);
   }
 }
 
 function minimizeWindow(element) {
-  element.classList.toggle('minimized');
+  console.log('Minimizing window');
+  element.classList.add('minimized');
 }
 
 function maximizeWindow(element) {
+  console.log('Maximizing window');
   if (element.classList.contains('maximized')) {
     element.classList.remove('maximized');
     element.style.width = `${element.initialWidth}px`;
@@ -226,15 +253,16 @@ function maximizeWindow(element) {
 }
 
 function closeWindow(element) {
+  console.log('Closing window');
   element.remove();
 }
 
 function loadApp(appName, container) {
+  console.log(`Loading app: ${appName}`);
   const appEvent = new CustomEvent('loadApp', { detail: { appName, container } });
   document.dispatchEvent(appEvent);
 }
 
-// Event listener for loading different apps
 document.addEventListener('loadApp', (event) => {
   const { appName, container } = event.detail;
   if (window[appName]) {
