@@ -20,36 +20,8 @@ function loadGalleryImages() {
 
 /*WINDOWS CREATING FUNCTION*/
 
-
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM fully loaded and parsed');
-    createDesktopIcon('Gallery', 'gallery-icon.png', 'Gallery');
-  createDesktopIcon('Shower', 'shower-icon.png', 'Shower');
-  });
   
   let windowCount = 0;
-  
-  function createDesktopIcon(appName, iconSrc, displayName) {
-    const desktop = document.getElementById('desktop');
-    const icon = document.createElement('div');
-    icon.className = 'desktop-icon';
-  
-    const img = document.createElement('img');
-    img.src = iconSrc;
-    icon.appendChild(img);
-  
-    const span = document.createElement('span');
-    span.innerText = displayName;
-    icon.appendChild(span);
-  
-    // Add event listener for double-click
-    icon.addEventListener('dblclick', () => {
-      console.log(`Double-click detected on ${appName} icon`);
-      createWindow(appName);
-    });
-  
-    desktop.appendChild(icon);
-  }
   
   function createWindow(appName) {
     console.log(`Creating window for ${appName}`);

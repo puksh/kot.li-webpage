@@ -40,10 +40,7 @@ html, body{
     font-style:normal;
   }
 
-#gallery.loaded img {
-  width:100%;
-  height:auto
-}
+
 .desktop {
   position: absolute;
   top: 0;
@@ -58,7 +55,8 @@ html, body{
   background-position: center;
   display: flex;
   flex-wrap: wrap;
-  z-index: 1; /* Ensures desktop icons are below windows */
+  z-index: 2; /* Ensures desktop icons are below windows */
+  pointer-events: auto; /* Ensure pointer events are enabled */
 }
 
 h1{ 
@@ -80,7 +78,7 @@ h1{
             #255fda 50%, 
             #225fdc 75%, 
             #1045af 95%);
-  z-index: 8; /* Ensures desktop icons are below windows */
+  z-index: 8;
 
 }
 .startbutton {
@@ -112,7 +110,7 @@ h1{
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  z-index: 2; /* Ensures windows are on top */
+  z-index: 1; /* Ensures windows are on top */
 }
 
 .desktop-icon {
@@ -121,7 +119,7 @@ h1{
   text-align: center;
   color: white;
   cursor: pointer;
-  z-index: 5; /* Ensures icons are interactive */
+  z-index: 3; /* Ensures icons are interactive */
 }
 
 .desktop-icon img {
@@ -145,7 +143,7 @@ h1{
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
-  z-index: 7; /* Ensures windows are above all */
+  z-index: 4 !important;
 }
 
 .header {
@@ -197,7 +195,10 @@ h1{
   flex-wrap: wrap;
   gap: 10px;
 }
-
+#gallery.loaded img {
+  width:100%;
+  height:auto
+}
 .column {
   flex: 1;
   display: flex;
@@ -206,7 +207,7 @@ h1{
 }
 
 .imgGrooby {
-  max-width: 100%;
+  max-width: 180px;
   height: auto;
   border: 1px solid #ccc;
   padding: 5px;

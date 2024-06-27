@@ -14,8 +14,17 @@
 </head>
 
 <body>
-    <div id="container"></div>
-    <div class="desktop" id="desktop"></div>
+    <div class="desktop" id="desktop">
+        <div class="desktop-icon" onclick="createWindow('Gallery')">
+            <img src="gallery-icon.png" alt="Gallery Icon">
+            <span>Gallery</span>
+        </div>
+        <div class="desktop-icon" onclick="createWindow('Shower')">
+            <img src="shower-icon.png" alt="Shower Icon">
+            <span>Shower</span>
+        </div>
+        <div id="container"></div>
+    </div>
     <div class="taskbar">
         <a href="#img1" class="startbutton" id="startbuttonImg">
             <img src="startButton.png" alt="Start button">
@@ -24,6 +33,8 @@
     
     <script src="script.js"></script>
     <script src="gallery.js"></script>
+    <script src="debug.js"></script>
+    <script src="container.js"></script>
 </body>
 <!-- 2024&copy; - contact me meow@kot.li onegaishimasu -->
 <!--
