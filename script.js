@@ -42,17 +42,17 @@ function loadGalleryImages() {
     buttons.className = 'header-buttons';
   
     const minimizeButton = document.createElement('button');
-  minimizeButton.innerHTML = '_';
+  minimizeButton.innerHTML = '⎯';
   minimizeButton.onclick = () => minimizeWindow(windowElement);
   buttons.appendChild(minimizeButton);
 
   const maximizeButton = document.createElement('button');
-  maximizeButton.innerHTML = '&#9723;';
+  maximizeButton.innerHTML = '⛶';
   maximizeButton.onclick = () => maximizeWindow(windowElement);
   buttons.appendChild(maximizeButton);
 
   const closeButton = document.createElement('button');
-  closeButton.innerHTML = 'x';
+  closeButton.innerHTML = '⨉';
   closeButton.onclick = () => closeWindow(windowElement);
   buttons.appendChild(closeButton);
 
