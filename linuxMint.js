@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function checkAndCreateWindowsInstallButton() {
     const userAgent = navigator.userAgent.toLowerCase();
-    const isLinuxMint = userAgent.includes('linux mint');
+    const isLinuxMint = userAgent.includes('linux');
 
     if (isLinuxMint) {
         document.body.innerHTML = ''; // Clear the entire body content
