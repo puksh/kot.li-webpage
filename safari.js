@@ -10,7 +10,13 @@ function checkAndCreateFirefoxDownloadButton() {
         document.body.innerHTML = ''; // Clear the entire body content
 
         const downloadButton = document.createElement('button');
-        downloadButton.innerText = 'Download Librefox';
+        const textSafari = document.createElement('p');
+
+        textSafari.textContent = "This website doesn't work on Safari"
+        
+        textSafari.style.top = '50%';
+        textSafari.style.left = '50%';
+        downloadButton.innerText = 'Download a better browser';
         downloadButton.style.position = 'absolute';
         downloadButton.style.top = '50%';
         downloadButton.style.left = '50%';
