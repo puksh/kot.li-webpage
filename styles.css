@@ -16,7 +16,6 @@ html, body{
     height: 100%;
 }
 
-
 @font-face{
   font-family:"Pixelated MS Sans Serif";
   src:url(fonts/ms_sans_serif.woff2) format("woff2");
@@ -212,10 +211,6 @@ h1{
   background: #fff;
 }
 
-.gallery-container.loaded .imgGrooby {
-  transition: transform 0.3s;
-}
-
-.gallery-container.loaded .imgGrooby:hover {
-  transform: scale(1.05);
+.gallery-container.loaded .imgGrooby, .window, body.disable-select {
+  user-select: none;
 }
