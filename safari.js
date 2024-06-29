@@ -7,11 +7,12 @@ function checkAndCreateFirefoxDownloadButton() {
     const isSafari = userAgent.includes('safari') && !userAgent.includes('chrome');
     const isIOS = /iphone|ipad|ipod/.test(userAgent);
 
-    if (isSafari || isIOS) {
+    //if (isSafari || isIOS) {
+    if (isSafari) {
         document.body.innerHTML = ''; // Clear the entire body content
 
         const message = document.createElement('p');
-        message.innerText = 'This website does not work on Apple devices. Please download Firefox for a better experience.';
+        message.innerText = 'This website does not work on the Safari Browser. Please download Firefox for a better experience.';
         message.style.position = 'absolute';
         message.style.top = '40%';
         message.style.left = '50%';
