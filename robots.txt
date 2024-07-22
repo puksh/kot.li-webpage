@@ -1,17 +1,20 @@
+User-agent: *
+Disallow:
+
 User-agent: Googlebot
-Disallow: /
-
-User-agent: Bingbot
-Disallow: /
-
-User-agent: Slurp
-Disallow: /
-
+User-agent: msnbot
+User-agent: bingbot
+User-agent: Yandex
 User-agent: DuckDuckBot
 Disallow: /
 
-User-agent: Baiduspider
-Disallow: /
-
-User-agent: Yandex
+User-agent: GPTBot
+User-agent: DataForSeoBot
+User-agent: SeekportBot
+User-agent: AwarioSmartBot
+User-agent: AwarioBot
+User-agent: DotBot
+User-agent: Amazonbot
+User-agent: MJ12bot
+User-agent: AhrefsBot
 Disallow: /
