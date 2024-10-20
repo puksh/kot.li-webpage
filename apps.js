@@ -55,12 +55,40 @@ function Christitus(container) {
 
   const p = document.createElement("p");
   p.classList.add("instructions");
-  p.textContent = `Command copied to clipboard!\n
-  \n
-  1. Press "⊞ Win + X" and select "Windows PowerShell (Admin)".\n
-  2. Right-click in the window to paste and run the command.\n`;
+  p.textContent = `  Command copied to clipboard!
+  'irm "https://christitus.com/win" | iex'
+  
+  1. Press "⊞ Win + X" and select "Windows PowerShell (Admin)".
+  2. Right-click in the window to paste and run the command.`;
 
   // Append the message to the container and the container to the provided element
   ChristitusContainer.appendChild(p);
   container.appendChild(ChristitusContainer);
+}
+
+function About(container) {
+  // Create a container and message
+  const AboutContainer = document.createElement("div");
+  AboutContainer.id = "AboutContainer";
+  AboutContainer.classList.add("About-container");
+
+  const p = document.createElement("p");
+  p.classList.add("instructions");
+  p.textContent = `Using the XP.css as a base for this project, thanks to all the folks that made it!`;
+
+  // Create an anchor element for the button link
+  const buttonLink = document.createElement("a");
+  buttonLink.href = "https://botoxparty.github.io/XP.css/";
+  buttonLink.target = "_blank"; // Opens in a new tab
+
+  const button = document.createElement("button");
+  button.textContent = "Visit XP.css"; // Button text
+
+  // Append the button to the anchor element
+  buttonLink.appendChild(button);
+
+  // Append the message to the container and the container to the provided element
+  AboutContainer.appendChild(p);
+  AboutContainer.appendChild(buttonLink);
+  container.appendChild(AboutContainer);
 }

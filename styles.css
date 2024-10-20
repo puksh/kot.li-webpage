@@ -4,6 +4,22 @@ body {
   padding: 0;
   height: 100%;
 }
+* {
+  cursor: none;
+}
+.mouse {
+  width: 20px;
+  height: 20px;
+  background-color: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.mouse img {
+  width: 20px;
+}
 
 @font-face {
   font-family: "Pixelated MS Sans Serif";
@@ -68,6 +84,18 @@ h1 {
     #1045af 95%
   );
   z-index: 8;
+}
+
+.taskbar-button {
+  background: none;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.taskbar-button:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Hover effect */
 }
 
 .startbutton {
