@@ -2,12 +2,15 @@ let windowCount = 0;
 
 function createWindow(appName) {
   //console.log(`Creating window for ${appName}`);
+  if (document.getElementById(appName)) {
+    return;
+  }
   windowCount++;
   const container = document.getElementById("container");
   const windowElement = document.createElement("div");
 
   windowElement.className = "window";
-  windowElement.id = `window-${windowCount}`;
+  windowElement.id = appName;
 
   const titleBar = document.createElement("div");
   titleBar.className = "title-bar";
