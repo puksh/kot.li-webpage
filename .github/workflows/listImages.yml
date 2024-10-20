@@ -3,26 +3,26 @@ name: Generate Image List
 on:
   push:
     paths:
-      - 'images/**'
+      - "images/**"
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Generate Image List
-      run: |
-        echo "var imageList = [" > imageList.js
-        ls images/* | xargs -I {} echo "'{}'," >> imageList.js
-        echo "];" >> imageList.js
+      - name: Generate Image List
+        run: |
+          echo "var imageList = [" > scripts/imageList.js
+          ls images/* | xargs -I {} echo "'{}'," >> scripts/imageList.js
+          echo "];" >> scripts/imageList.js
 
-    - name: Commit and Push
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add imageList.js
-        git commit -m "Update image list" -a
-        git push
+      - name: Commit and Push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add scripts/imageList.js
+          git commit -m "Update image list" -a
+          git push
