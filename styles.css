@@ -4,7 +4,8 @@ body {
   padding: 0;
   height: 100%;
 }
-* {
+
+.hide-default-cursor * {
   cursor: none;
 }
 .mouse {
@@ -18,7 +19,7 @@ body {
 }
 
 .mouse img {
-  width: 20px;
+  width: 10px;
 }
 
 @font-face {

@@ -92,3 +92,40 @@ function About(container) {
   AboutContainer.appendChild(buttonLink);
   container.appendChild(AboutContainer);
 }
+
+function Settings(container) {
+  const SettingsContainer = document.createElement("div");
+  SettingsContainer.id = "SettingsContainer";
+  SettingsContainer.classList.add("Settings-container");
+
+  // Create the checkbox and label in apps.js
+  const checkboxCustomCursor = document.createElement("input");
+  checkboxCustomCursor.type = "checkbox";
+  checkboxCustomCursor.id = "checkboxCustomCursor";
+
+  // Load saved cursor state from localStorage
+  const isCursorEnabled = localStorage.getItem("isCursorEnabled") === "true";
+  checkboxCustomCursor.checked = isCursorEnabled; // Reflect the saved state in the checkbox
+
+  const label = document.createElement("label");
+  label.htmlFor = "checkboxCustomCursor";
+  label.textContent = "Toggle custom cursor";
+
+  // Append the checkbox and label to the body or settings container
+  document.body.appendChild(checkboxCustomCursor);
+  document.body.appendChild(label);
+
+  // Attach event listener to save the state to localStorage
+  checkboxCustomCursor.addEventListener("change", function () {
+    const isCursorEnabled = checkboxCustomCursor.checked;
+    localStorage.setItem("isCursorEnabled", isCursorEnabled); // Save state
+    // Dispatch a custom event to inform the cursor script
+    const event = new CustomEvent("cursorToggle", {
+      detail: { isCursorEnabled },
+    });
+    document.dispatchEvent(event);
+  });
+
+  SettingsContainer.appendChild(checkboxCustomCursor);
+  container.appendChild(SettingsContainer);
+}
