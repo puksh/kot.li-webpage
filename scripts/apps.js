@@ -5,7 +5,7 @@ function Gallery(container) {
   container.appendChild(galleryContainer);
 
   const script = document.createElement("script");
-  script.src = "imageList.js";
+  script.src = "scripts/imageList.js";
   script.onload = function () {
     loadImages(imageList);
   };
