@@ -223,6 +223,8 @@ function Settings(container) {
       wallpaperSelect.value = "user-defined"; // Set the dropdown to "User Defined"
     } else if (savedWallpaper) {
       wallpaperSelect.value = savedWallpaper; // Set the dropdown to the saved wallpaper
+    } else {
+      wallpaperSelect.value = wallpaperSelect.options[0].value; // Set to the first available option (if any)
     }
 
     // Listen for changes in the dropdown and update the wallpaper
