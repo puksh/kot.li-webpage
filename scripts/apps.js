@@ -93,10 +93,52 @@ function About(container) {
   container.appendChild(AboutContainer);
 }
 
+//
+//  Update Wallpaper Functions
+//
+
+// Function to update desktop background
+function updateWallpaper(wallpaperPath, isUserDefined = false) {
+  const desktop = document.querySelector(".desktop");
+  if (desktop) {
+    desktop.style.backgroundImage = `url('${wallpaperPath}')`; // Update the background
+  }
+
+  // Save the selected wallpaper in localStorage
+  if (isUserDefined) {
+    localStorage.setItem("userDefinedWallpaper", wallpaperPath);
+  } else {
+    localStorage.setItem("selectedWallpaper", wallpaperPath);
+  }
+}
+
+// Load wallpaper on page load
+function loadWallpaperOnPageLoad() {
+  const userDefinedWallpaper = localStorage.getItem("userDefinedWallpaper");
+  const savedWallpaper = localStorage.getItem("selectedWallpaper");
+
+  if (userDefinedWallpaper) {
+    updateWallpaper(userDefinedWallpaper, true); // Load user-defined wallpaper
+  } else if (savedWallpaper) {
+    updateWallpaper(savedWallpaper); // Load predefined wallpaper
+  }
+}
+
+// Call this function on page load
+loadWallpaperOnPageLoad();
+
+//
+//  Settings App
+//
+
 function Settings(container) {
   const SettingsContainer = document.createElement("div");
   SettingsContainer.id = "SettingsContainer";
   SettingsContainer.classList.add("Settings-container");
+
+  //
+  // CURSOR
+  //
 
   // Create the checkbox and label in apps.js
   const checkboxCustomCursor = document.createElement("input");
@@ -111,9 +153,16 @@ function Settings(container) {
   label.htmlFor = "checkboxCustomCursor";
   label.textContent = "Toggle custom cursor";
 
-  // Append the checkbox and label to the body or settings container
-  document.body.appendChild(checkboxCustomCursor);
-  document.body.appendChild(label);
+  // Create a div with field-row class
+  const fieldRow = document.createElement("div");
+  fieldRow.classList.add("field-row");
+
+  // Append the checkbox and label to the field-row div
+  fieldRow.appendChild(checkboxCustomCursor);
+  fieldRow.appendChild(label);
+
+  // Append the field-row to the SettingsContainer
+  SettingsContainer.appendChild(fieldRow);
 
   // Attach event listener to save the state to localStorage
   checkboxCustomCursor.addEventListener("change", function () {
@@ -126,6 +175,115 @@ function Settings(container) {
     document.dispatchEvent(event);
   });
 
-  SettingsContainer.appendChild(checkboxCustomCursor);
+  //
+  //WALLPAPER
+  //
+
+  // Create dropdown for wallpaper selection
+  const wallpaperSelect = document.createElement("select");
+  wallpaperSelect.id = "wallpaperSelect";
+
+  // Load wallpapers from the /wallpapers folder (for now, hardcoding the list)
+  const wallpapers = [
+    { name: "blissMin.png", path: "/wallpapers/blissMin.png" },
+    {
+      name: "windows-xp-bliss-4k-lu-1920x1080.jpg",
+      path: "/wallpapers/windows-xp-bliss-4k-lu-1920x1080.jpg",
+    },
+    { name: "bliss.jpg", path: "/wallpapers/bliss.jpg" },
+  ];
+
+  // Function to populate dropdown with wallpapers
+  function populateWallpaperOptions() {
+    wallpapers.forEach((wallpaper) => {
+      const option = document.createElement("option");
+      option.value = wallpaper.path; // Store the path in the option value
+      option.textContent = wallpaper.name;
+      wallpaperSelect.appendChild(option);
+    });
+
+    // Add "User Defined" option at the end
+    const userOption = document.createElement("option");
+    userOption.value = "user-defined";
+    userOption.textContent = "User Defined";
+    wallpaperSelect.appendChild(userOption);
+    const userDefinedWallpaper = localStorage.getItem("userDefinedWallpaper");
+    if (userDefinedWallpaper) {
+      wallpaperSelect.value = "user-defined"; // Set the dropdown to "User Defined"
+    } else if (savedWallpaper) {
+      wallpaperSelect.value = savedWallpaper; // Set the dropdown to the saved wallpaper
+    }
+
+    // Listen for changes in the dropdown and update the wallpaper
+    wallpaperSelect.addEventListener("change", function () {
+      const selectedWallpaper = wallpaperSelect.value;
+
+      if (selectedWallpaper === "user-defined") {
+        const userWallpaper = localStorage.getItem("userDefinedWallpaper");
+        if (userWallpaper) {
+          updateWallpaper(userWallpaper, true); // Load user-defined wallpaper
+        }
+      } else {
+        updateWallpaper(selectedWallpaper); // Load predefined wallpaper
+      }
+    });
+  }
+
+  // Create button for uploading custom wallpapers
+  const uploadButton = document.createElement("button");
+  uploadButton.textContent = "Upload Wallpaper";
+  uploadButton.id = "uploadWallpaper";
+
+  // Append the upload button next to the dropdown
+  const fileInput = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.accept = "image/*";
+  fileInput.style.display = "none"; // Hide the file input, we'll trigger it from the button
+
+  // Trigger file input when the button is clicked
+  uploadButton.addEventListener("click", function () {
+    fileInput.click();
+  });
+
+  // Listen for wallpaper uploads
+  fileInput.addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const wallpaperDataUrl = e.target.result; // Get image as data URL
+        updateWallpaper(wallpaperDataUrl, true); // Update background to user wallpaper
+        wallpaperSelect.value = "user-defined"; // Set dropdown to "User Defined"
+      };
+      reader.readAsDataURL(file); // Read the uploaded image file as data URL
+    }
+  });
+
+  // Listen for wallpaper uploads
+  uploadButton.addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const wallpaperDataUrl = e.target.result; // Get image as data URL
+        updateWallpaper(wallpaperDataUrl, true); // Update background to user wallpaper
+        wallpaperSelect.value = "user-defined"; // Set dropdown to "User Defined"
+      };
+      reader.readAsDataURL(file); // Read the uploaded image file as data URL
+    }
+  });
+
+  // Populate the dropdown with available wallpapers
+  populateWallpaperOptions();
+
+  // Append the elements to the SettingsContainer
+  SettingsContainer.appendChild(wallpaperSelect);
+  SettingsContainer.appendChild(uploadButton);
+
+  //
+  //  Populate the Settings App, END
+  //
+
+  // Append the SettingsContainer to the container
   container.appendChild(SettingsContainer);
 }
