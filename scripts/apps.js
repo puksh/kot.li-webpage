@@ -119,7 +119,7 @@ function updateWallpaper(wallpaperPath, isUserDefined = false) {
 // Load wallpaper on page load
 function loadWallpaperOnPageLoad() {
   const userDefinedWallpaper = localStorage.getItem("userDefinedWallpaper");
-  const savedWallpaper = localStorage.getItem("selectedWallpaper");
+  const savedWallpaper = localStorage.getItem("selectedWallpaper") || null;
 
   if (userDefinedWallpaper) {
     updateWallpaper(userDefinedWallpaper, true); // Load user-defined wallpaper
