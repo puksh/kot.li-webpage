@@ -143,6 +143,9 @@ function Settings(container) {
   //
   // CURSOR
   //
+  const optionalSettings = document.createElement("p");
+  optionalSettings.classList.add("instructions");
+  optionalSettings.textContent = `Optional Settings`;
 
   // Create the checkbox and label in apps.js
   const checkboxCustomCursor = document.createElement("input");
@@ -166,6 +169,7 @@ function Settings(container) {
   fieldRow.appendChild(label);
 
   // Append the field-row to the SettingsContainer
+  SettingsContainer.appendChild(optionalSettings);
   SettingsContainer.appendChild(fieldRow);
 
   // Attach event listener to save the state to localStorage
@@ -182,7 +186,10 @@ function Settings(container) {
   //
   //WALLPAPER
   //
-
+  const wallpaperText = document.createElement("p");
+  wallpaperText.classList.add("instructions");
+  wallpaperText.textContent = `
+  Wallpaper`;
   // Create dropdown for wallpaper selection
   const wallpaperSelect = document.createElement("select");
   wallpaperSelect.id = "wallpaperSelect";
@@ -281,6 +288,7 @@ function Settings(container) {
   populateWallpaperOptions();
 
   // Append the elements to the SettingsContainer
+  SettingsContainer.appendChild(wallpaperText);
   SettingsContainer.appendChild(wallpaperSelect);
   SettingsContainer.appendChild(uploadButton);
 
