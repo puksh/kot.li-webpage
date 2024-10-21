@@ -74,7 +74,11 @@ function About(container) {
 
   const p = document.createElement("p");
   p.classList.add("instructions");
-  p.textContent = `Using the XP.css as a base for this project, thanks to all the folks that made it!`;
+  p.textContent = `Using the XP.css as a base for this project, thanks to all the folks that made it!
+  
+  Bliss Photograph by Charles O'Rear, thank you!
+  Dark Bliss edit by someone from the internet, can't find source
+  `;
 
   // Create an anchor element for the button link
   const buttonLink = document.createElement("a");
@@ -185,12 +189,12 @@ function Settings(container) {
 
   // Load wallpapers from the /wallpapers folder (for now, hardcoding the list)
   const wallpapers = [
-    { name: "blissMin.png", path: "/wallpapers/blissMin.png" },
+    { name: "Bliss", path: "/wallpapers/bliss.jpeg" },
     {
-      name: "windows-xp-bliss-4k-lu-1920x1080.jpg",
-      path: "/wallpapers/windows-xp-bliss-4k-lu-1920x1080.jpg",
+      name: "Bliss Dark",
+      path: "/wallpapers/blissDark.jpg",
     },
-    { name: "bliss.jpg", path: "/wallpapers/bliss.jpg" },
+    { name: "Bliss Minimal", path: "/wallpapers/blissMin.png" },
   ];
 
   // Function to populate dropdown with wallpapers
