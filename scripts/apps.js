@@ -111,15 +111,17 @@ function updateWallpaper(wallpaperPath, isUserDefined = false) {
   // Save the selected wallpaper in localStorage
   if (isUserDefined) {
     localStorage.setItem("userDefinedWallpaper", wallpaperPath);
-  } else {
+  } else if (localStorage.getItem("selectedWallpaper")) {
     localStorage.setItem("selectedWallpaper", wallpaperPath);
+  } else {
+    localStorage.setItem("selectedWallpaper", "/wallpapers/bliss.jpeg");
   }
 }
 
 // Load wallpaper on page load
 function loadWallpaperOnPageLoad() {
   const userDefinedWallpaper = localStorage.getItem("userDefinedWallpaper");
-  const savedWallpaper = localStorage.getItem("selectedWallpaper") || null;
+  const savedWallpaper = localStorage.getItem("selectedWallpaper");
 
   if (userDefinedWallpaper) {
     updateWallpaper(userDefinedWallpaper, true); // Load user-defined wallpaper
@@ -219,6 +221,9 @@ function Settings(container) {
     userOption.textContent = "User Defined";
     wallpaperSelect.appendChild(userOption);
     const userDefinedWallpaper = localStorage.getItem("userDefinedWallpaper");
+
+    const savedWallpaper = localStorage.getItem("selectedWallpaper");
+
     if (userDefinedWallpaper) {
       wallpaperSelect.value = "user-defined"; // Set the dropdown to "User Defined"
     } else if (savedWallpaper) {
