@@ -1,70 +1,81 @@
 let windowCount = 0;
 
 function createWindow(appName) {
-	//console.log(`Creating window for ${appName}`);
-	if (document.getElementById(appName)) {
-		return;
-	}
+	if (document.getElementById(appName)) return;
+
 	windowCount++;
-	const container = document.getElementById("container");
-	const windowElement = document.createElement("div");
 
-	windowElement.className = "window";
-	windowElement.id = appName;
+	// Create elements using a helper function
+	const createElement = (tag, className, attributes = {}) => {
+		const element = document.createElement(tag);
+		if (className) element.className = className;
+		Object.entries(attributes).forEach(([key, value]) => {
+			element.setAttribute(key, value);
+		});
+		return element;
+	};
 
-	const titleBar = document.createElement("div");
-	titleBar.className = "title-bar";
+	// Create window structure
+	const windowElement = createElement("div", "window", { id: appName });
+	const titleBar = createElement("div", "title-bar");
+	const content = createElement("div", "content");
 
-	const title = document.createElement("span");
+	// Create title
+	const title = createElement("span", "title-bar-text");
 	title.innerText = appName;
-	title.className = "title-bar-text";
-	titleBar.appendChild(title);
 
-	const buttons = document.createElement("div");
-	buttons.className = "title-bar-controls";
+	// Create button container
+	const buttons = createElement("div", "title-bar-controls");
 
-	const minimizeButton = document.createElement("button");
-	//minimizeButton.innerHTML = '⎯';
-	minimizeButton.className = "minimizeButton";
-	minimizeButton.setAttribute("aria-label", "Minimize");
-	minimizeButton.onclick = () => minimizeWindow(windowElement);
-	buttons.appendChild(minimizeButton);
+	// Define button configurations
+	const buttonConfigs = [
+		{
+			class: "minimizeButton",
+			label: "Minimize",
+			handler: () => minimizeWindow(windowElement),
+		},
+		{
+			class: "maximizeButton",
+			label: "Maximize",
+			handler: () => maximizeWindow(windowElement),
+		},
+		{
+			class: "closeButton",
+			label: "Close",
+			handler: () => closeWindow(windowElement),
+		},
+	];
 
-	const maximizeButton = document.createElement("button");
-	//maximizeButton.innerHTML = '⛶';
-	maximizeButton.className = "maximizeButton";
-	maximizeButton.setAttribute("aria-label", "Maximize");
-	maximizeButton.onclick = () => maximizeWindow(windowElement);
-	buttons.appendChild(maximizeButton);
+	// Create buttons
+	const buttonElements = buttonConfigs.map((config) => {
+		const button = createElement("button", config.class, {
+			"aria-label": config.label,
+		});
+		button.onclick = config.handler;
+		return button;
+	});
 
-	const closeButton = document.createElement("button");
-	//closeButton.innerHTML = '⨉';
-	closeButton.className = "closeButton";
-	closeButton.setAttribute("aria-label", "Close");
-	closeButton.onclick = () => closeWindow(windowElement);
-	buttons.appendChild(closeButton);
+	// Assemble the window
+	buttons.append(...buttonElements);
+	titleBar.append(title, buttons);
+	windowElement.append(titleBar, content);
 
-	titleBar.appendChild(buttons);
-	windowElement.appendChild(titleBar);
-
-	const content = document.createElement("div");
-	content.className = "content";
-	windowElement.appendChild(content);
-
+	// Add to container and position
+	const container = document.getElementById("container");
 	container.appendChild(windowElement);
 
 	// Center the window
-	const containerRect = container.getBoundingClientRect();
-	const windowRect = windowElement.getBoundingClientRect();
-	windowElement.style.left = `${
-		(containerRect.width - windowRect.width) / 2
-	}px`;
-	windowElement.style.top = `${
-		(containerRect.height - windowRect.height) / 2
-	}px`;
+	const [containerRect, windowRect] = [container, windowElement].map((el) =>
+		el.getBoundingClientRect(),
+	);
 
+	Object.assign(windowElement.style, {
+		left: `${(containerRect.width - windowRect.width) / 2}px`,
+		top: `${(containerRect.height - windowRect.height) / 2}px`,
+	});
+
+	// Initialize dragging and load content
 	makeDraggable(windowElement, titleBar);
-
 	loadApp(appName, content);
 }
 
