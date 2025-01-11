@@ -1,0 +1,18 @@
+# Logs
+#-----------------------------------
+*.log
+npm-debug.log*
+
+# Editor directories and files
+#-----------------------------------
+.idea/
+.vscode/
+.log/
+
+# TypeScript
+#-----------------------------------
+*.tsbuildinfo
+
+# Workspace settings
+#-----------------------------------
+*.code-workspace
