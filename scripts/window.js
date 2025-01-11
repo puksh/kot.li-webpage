@@ -1,6 +1,6 @@
 let windowCount = 0;
 
-function createWindow(appName) {
+function createWindow(appName, width = 400, height = 300) {
 	if (document.getElementById(appName)) return;
 
 	windowCount++;
@@ -59,6 +59,10 @@ function createWindow(appName) {
 	buttons.append(...buttonElements);
 	titleBar.append(title, buttons);
 	windowElement.append(titleBar, content);
+
+	// Set initial size
+	windowElement.style.width = `${width}px`;
+	windowElement.style.height = `${height}px`;
 
 	// Add to container and position
 	const container = document.getElementById("container");
