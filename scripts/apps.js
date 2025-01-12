@@ -27,7 +27,22 @@ function Gallery(container) {
 			const img = document.createElement("img");
 			img.src = imageSrc;
 			img.classList.add("imgGrooby");
-			columns[index % numberOfColumns].appendChild(img);
+
+			// Fetch image size
+			fetch(imageSrc)
+				.then((response) => response.blob())
+				.then((blob) => {
+					const sizeInKB = (blob.size / 1024).toFixed(2); // Convert size to KB and format to 2 decimal places
+					const sizeText = document.createElement("span");
+					sizeText.classList.add("image-size");
+					sizeText.textContent = `${sizeInKB} KB`;
+					const imageContainer = document.createElement("div");
+					imageContainer.classList.add("image-container");
+					imageContainer.appendChild(img);
+					imageContainer.appendChild(sizeText);
+					columns[index % numberOfColumns].appendChild(imageContainer);
+				})
+				.catch((error) => console.error("Error fetching image size:", error));
 		});
 
 		galleryContainer.classList.add("loaded");
