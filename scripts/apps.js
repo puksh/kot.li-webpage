@@ -12,18 +12,7 @@ function Gallery(container) {
 	document.head.appendChild(script);
 
 	function loadImages(images) {
-		const imagesPerColumn = 3;
-		const numberOfColumns = Math.ceil(images.length / imagesPerColumn);
-
-		const columns = [];
-		for (let i = 0; i < numberOfColumns; i++) {
-			const column = document.createElement("div");
-			column.classList.add("column");
-			galleryContainer.appendChild(column);
-			columns.push(column);
-		}
-
-		images.forEach((imageSrc, index) => {
+		images.forEach((imageSrc) => {
 			const img = document.createElement("img");
 			img.src = imageSrc;
 			img.classList.add("imgGrooby");
@@ -40,7 +29,7 @@ function Gallery(container) {
 					imageContainer.classList.add("image-container");
 					imageContainer.appendChild(img);
 					imageContainer.appendChild(sizeText);
-					columns[index % numberOfColumns].appendChild(imageContainer);
+					galleryContainer.appendChild(imageContainer);
 				})
 				.catch((error) => console.error("Error fetching image size:", error));
 		});
