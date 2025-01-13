@@ -138,25 +138,29 @@ function minimizeWindow(element) {
 	console.log("Minimizing window");
 	element.classList.add("minimized");
 }
-
 function maximizeWindow(element) {
 	console.log("Maximizing window");
-	if (element.classList.contains("maximized")) {
-		element.classList.remove("maximized");
-		element.style.width = `${element.initialWidth}px`;
-		element.style.height = `${element.initialHeight}px`;
-		element.style.left = `${element.initialLeft}px`;
-		element.style.top = `${element.initialTop}px`;
+	const isMaximized = element.classList.toggle("maximized");
+	if (isMaximized) {
+		Object.assign(element.dataset, {
+			initialWidth: element.style.width,
+			initialHeight: element.style.height,
+			initialLeft: element.style.left,
+			initialTop: element.style.top,
+		});
+		Object.assign(element.style, {
+			width: "100%",
+			height: "100%",
+			left: "0",
+			top: "0",
+		});
 	} else {
-		element.classList.add("maximized");
-		element.initialWidth = element.offsetWidth;
-		element.initialHeight = element.offsetHeight;
-		element.initialLeft = element.offsetLeft;
-		element.initialTop = element.offsetTop;
-		element.style.width = "100%";
-		element.style.height = "100%";
-		element.style.left = "0";
-		element.style.top = "0";
+		Object.assign(element.style, {
+			width: element.dataset.initialWidth,
+			height: element.dataset.initialHeight,
+			left: element.dataset.initialLeft,
+			top: element.dataset.initialTop,
+		});
 	}
 }
 
