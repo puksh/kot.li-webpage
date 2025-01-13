@@ -55,77 +55,22 @@ body {
 	background: url(wallpapers/bliss.jpeg);
 	image-rendering: pixelated;
 	overflow: hidden;
-	height: 100%;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
+	z-index: 0;
+	pointer-events: auto;
 	display: flex;
 	flex-wrap: wrap;
-	z-index: 2;
-	pointer-events: auto;
 }
-
-h1 {
-	font-family: "Pixelated MS Sans Serif", Arial;
-	-webkit-font-smoothing: antialiased;
-}
-
-.taskbar {
-	position: fixed;
-	bottom: 0px;
-	right: 0px;
-	padding: 0px;
-	width: 100%;
-	height: 28px;
-	background: linear-gradient(
-		180deg,
-		#4590f5 5%,
-		#225fdc 25%,
-		#195cdc 50%,
-		#195cdc 75%,
-		#1045af 95%
-	);
-	z-index: 8;
-}
-
-.taskbar-button {
-	background: none;
-	border: none;
-	color: white;
-	padding: 10px;
-	cursor: pointer;
-}
-
-.taskbar-button:hover {
-	background-color: rgba(255, 255, 255, 0.2); /* Hover effect */
-}
-
-.startbutton {
-	display: block;
-	width: 82px;
-	height: 27px;
-	overflow: hidden;
-	cursor: pointer;
-}
-
-.startbutton img {
-	width: 82px;
-}
-
-.startbutton:hover img {
-	transform: translateY(-27px);
-}
-
-.startbutton.clicked img {
-	transform: translateY(-54px);
-}
-
 #container {
-	position: fixed;
 	width: 100%;
-	height: 100vh;
-	overflow: hidden;
-	z-index: 1;
+	height: 100%;
+	pointer-events: none;
+}
+
+#container > * {
+	pointer-events: auto;
 }
 
 .desktop-icon {
@@ -158,6 +103,60 @@ h1 {
 	z-index: 4 !important;
 	resize: both;
 	overflow: hidden;
+}
+h1 {
+	font-family: "Pixelated MS Sans Serif", Arial;
+	-webkit-font-smoothing: antialiased;
+}
+
+.taskbar {
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
+	padding: 0px;
+	width: 100%;
+	height: 28px;
+	background: linear-gradient(
+		180deg,
+		#4590f5 5%,
+		#225fdc 25%,
+		#195cdc 50%,
+		#195cdc 75%,
+		#1045af 95%
+	);
+	z-index: 80;
+}
+
+.taskbar-button {
+	background: none;
+	border: none;
+	color: white;
+	padding: 10px;
+	cursor: pointer;
+}
+
+.taskbar-button:hover {
+	background-color: rgba(255, 255, 255, 0.2); /* Hover effect */
+}
+
+.startbutton {
+	display: block;
+	width: 82px;
+	height: 27px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.startbutton img {
+	width: 82px;
+}
+
+.startbutton:hover img {
+	transform: translateY(-27px);
+}
+
+.startbutton.clicked img {
+	transform: translateY(-54px);
 }
 
 .content {
