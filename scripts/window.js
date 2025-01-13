@@ -87,17 +87,27 @@ function makeDraggable(element, handle) {
 	let isDragging = false;
 	let offsetX, offsetY;
 
-	// Handle touch events
-	handle.addEventListener("touchstart", (event) => {
-		isDragging = true;
-		const touch = event.touches[0];
-		offsetX = touch.clientX - element.offsetLeft;
-		offsetY = touch.clientY - element.offsetTop;
-		document.addEventListener("touchmove", onTouchMove);
-		document.addEventListener("touchend", onTouchUp);
-	});
+	const onMove = (clientX, clientY) => {
+		if (isDragging) {
+			element.style.left = `${clientX - offsetX}px`;
+			element.style.top = `${clientY - offsetY}px`;
+		}
+	};
 
-	// Handle mouse events
+	const onUp = () => {
+		isDragging = false;
+		document.removeEventListener("mousemove", onMouseMove);
+		document.removeEventListener("mouseup", onMouseUp);
+		document.removeEventListener("touchmove", onTouchMove);
+		document.removeEventListener("touchend", onTouchUp);
+	};
+
+	const onMouseMove = (event) => onMove(event.clientX, event.clientY);
+	const onTouchMove = (event) =>
+		onMove(event.touches[0].clientX, event.touches[0].clientY);
+	const onMouseUp = onUp;
+	const onTouchUp = onUp;
+
 	handle.addEventListener("mousedown", (event) => {
 		isDragging = true;
 		offsetX = event.clientX - element.offsetLeft;
@@ -106,32 +116,14 @@ function makeDraggable(element, handle) {
 		document.addEventListener("mouseup", onMouseUp);
 	});
 
-	function onTouchMove(event) {
-		if (isDragging) {
-			const touch = event.touches[0];
-			element.style.left = `${touch.clientX - offsetX}px`;
-			element.style.top = `${touch.clientY - offsetY}px`;
-		}
-	}
-
-	function onTouchUp() {
-		isDragging = false;
-		document.removeEventListener("touchmove", onTouchMove);
-		document.removeEventListener("touchend", onTouchUp);
-	}
-
-	function onMouseMove(event) {
-		if (isDragging) {
-			element.style.left = `${event.clientX - offsetX}px`;
-			element.style.top = `${event.clientY - offsetY}px`;
-		}
-	}
-
-	function onMouseUp() {
-		isDragging = false;
-		document.removeEventListener("mousemove", onMouseMove);
-		document.removeEventListener("mouseup", onMouseUp);
-	}
+	handle.addEventListener("touchstart", (event) => {
+		isDragging = true;
+		const touch = event.touches[0];
+		offsetX = touch.clientX - element.offsetLeft;
+		offsetY = touch.clientY - element.offsetTop;
+		document.addEventListener("touchmove", onTouchMove);
+		document.addEventListener("touchend", onTouchUp);
+	});
 }
 
 function minimizeWindow(element) {
