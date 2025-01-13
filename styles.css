@@ -77,7 +77,6 @@ body {
 	width: 64px;
 	height: 64px;
 	text-align: center;
-	color: white;
 	cursor: pointer;
 	z-index: 3;
 }
@@ -90,8 +89,9 @@ body {
 .desktop-icon span {
 	display: block;
 	margin-top: 4px;
-	font-size: 12px;
 	color: white;
+	font-family: "Pixelated MS Sans Serif";
+	filter: drop-shadow(0 0 1px black);
 }
 
 .window {
@@ -102,10 +102,6 @@ body {
 	resize: both;
 	overflow: hidden;
 	touch-action: none;
-}
-h1 {
-	font-family: "Pixelated MS Sans Serif", Arial;
-	-webkit-font-smoothing: antialiased;
 }
 
 .taskbar {
