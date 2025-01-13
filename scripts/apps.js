@@ -145,48 +145,35 @@ function Settings(container) {
 	const SettingsContainer = document.createElement("div");
 	SettingsContainer.id = "SettingsContainer";
 	SettingsContainer.classList.add("Settings-container");
-
-	//
-	// CURSOR
-	//
 	const optionalSettings = document.createElement("p");
 	optionalSettings.classList.add("instructions");
-	optionalSettings.textContent = `Optional Settings`;
+	optionalSettings.textContent = "Optional Settings";
 
-	// Create the checkbox and label in apps.js
+	const fieldRow = document.createElement("div");
+	fieldRow.classList.add("field-row");
+
 	const checkboxCustomCursor = document.createElement("input");
 	checkboxCustomCursor.type = "checkbox";
 	checkboxCustomCursor.id = "checkboxCustomCursor";
-
-	// Load saved cursor state from localStorage
-	const isCursorEnabled = localStorage.getItem("isCursorEnabled") === "true";
-	checkboxCustomCursor.checked = isCursorEnabled; // Reflect the saved state in the checkbox
+	checkboxCustomCursor.checked =
+		localStorage.getItem("isCursorEnabled") === "true";
 
 	const label = document.createElement("label");
 	label.htmlFor = "checkboxCustomCursor";
 	label.textContent = "Toggle custom cursor";
 
-	// Create a div with field-row class
-	const fieldRow = document.createElement("div");
-	fieldRow.classList.add("field-row");
-
-	// Append the checkbox and label to the field-row div
 	fieldRow.appendChild(checkboxCustomCursor);
 	fieldRow.appendChild(label);
 
-	// Append the field-row to the SettingsContainer
 	SettingsContainer.appendChild(optionalSettings);
 	SettingsContainer.appendChild(fieldRow);
 
-	// Attach event listener to save the state to localStorage
-	checkboxCustomCursor.addEventListener("change", function () {
+	checkboxCustomCursor.addEventListener("change", () => {
 		const isCursorEnabled = checkboxCustomCursor.checked;
-		localStorage.setItem("isCursorEnabled", isCursorEnabled); // Save state
-		// Dispatch a custom event to inform the cursor script
-		const event = new CustomEvent("cursorToggle", {
-			detail: { isCursorEnabled },
-		});
-		document.dispatchEvent(event);
+		localStorage.setItem("isCursorEnabled", isCursorEnabled);
+		document.dispatchEvent(
+			new CustomEvent("cursorToggle", { detail: { isCursorEnabled } }),
+		);
 	});
 
 	//
