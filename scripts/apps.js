@@ -80,8 +80,8 @@ function About(container) {
 	p.classList.add("instructions");
 	p.textContent = `Using the XP.css as a base for this project, thanks to all the folks that made it!
   
-  Bliss Photograph by Charles O'Rear, thank you!
-  Dark Bliss edit by someone from the internet, can't find source
+Bliss Photograph by Charles O'Rear, thank you!
+Dark Bliss edit by someone from the internet, can't find source
   `;
 
 	// Create an anchor element for the button link
