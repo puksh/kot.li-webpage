@@ -96,13 +96,12 @@ body {
 
 .window {
 	position: absolute;
-	width: 420px;
-	height: 200px;
 	display: flex;
 	flex-direction: column;
 	z-index: 4 !important;
 	resize: both;
 	overflow: hidden;
+	touch-action: none;
 }
 h1 {
 	font-family: "Pixelated MS Sans Serif", Arial;
