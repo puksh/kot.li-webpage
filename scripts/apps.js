@@ -290,10 +290,6 @@ function Settings(container) {
 	SettingsContainer.appendChild(wallpaperSelect);
 	SettingsContainer.appendChild(uploadButton);
 
-	//
-	//  Populate the Settings App, END
-	//
-
 	// Append the SettingsContainer to the container
 	container.appendChild(SettingsContainer);
 }
