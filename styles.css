@@ -220,3 +220,30 @@ body.disable-select {
 .instructions {
 	white-space: pre-wrap; /* This preserves line breaks */
 }
+
+#startMenu {
+	display: flex;
+	position: absolute;
+	bottom: 25px; /* Adjust based on your layout */
+	left: 0;
+	width: 200px; /* Adjust based on your layout */
+	background-color: #f0f0f0; /* Windows XP style color */
+	border: 1px solid #ccc;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	padding: 10px;
+}
+#startMenu.visible {
+	display: block;
+}
+#startMenu ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+#startMenu li {
+	padding: 5px 10px;
+	cursor: pointer;
+}
+#startMenu li:hover {
+	background-color: #e0e0e0;
+}
