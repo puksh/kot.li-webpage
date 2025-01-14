@@ -221,29 +221,38 @@ body.disable-select {
 	white-space: pre-wrap; /* This preserves line breaks */
 }
 
-#startMenu {
-	display: flex;
+.startMenu {
+	display: none; /* Hidden by default */
 	position: absolute;
-	bottom: 25px; /* Adjust based on your layout */
+	bottom: 25px; /* Adjust based on your taskbar height */
 	left: 0;
-	width: 200px; /* Adjust based on your layout */
-	background-color: #f0f0f0; /* Windows XP style color */
-	border: 1px solid #ccc;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	background-color: var(--background, #ffffff);
+	border: 1px solid var(--border, #ccc);
+	box-shadow: 2px 2px 10px var(--shadow, rgba(0, 0, 0, 0.1));
 	padding: 10px;
 }
-#startMenu.visible {
-	display: block;
+
+.startMenu.visible {
+	display: flex;
+	gap: 20px;
 }
-#startMenu ul {
+
+.startMenu__column {
+	min-width: 150px;
+}
+
+.startMenu__column ul {
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
-#startMenu li {
-	padding: 5px 10px;
+
+.startMenu__column li {
+	padding: 8px 12px;
 	cursor: pointer;
 }
-#startMenu li:hover {
-	background-color: #e0e0e0;
+
+.startMenu__column li:hover {
+	background-color: var(--primary, #e0e0e0);
+	color: var(--text, #000);
 }

@@ -6,34 +6,25 @@ startButton.addEventListener("click", function () {
 });
 
 startButton.addEventListener("mouseleave", function () {
-	if (startMenu.style.display === "none") {
+	if (startMenu.style.visible === "none") {
 		this.classList.remove("clicked");
 	}
 });
 
 const startMenu = document.getElementById("startMenu");
-startMenu.style.display = "none";
+startMenu.style.visible = "none";
 
-function toggleStartMenu() {
-	var startMenu = document.getElementById("startMenu");
-	if (startMenu.style.display === "none") {
-		startMenu.style.display = "flex";
-	} else {
-		startMenu.style.display = "none";
+document.addEventListener("click", function (event) {
+	const startMenu = document.getElementById("startMenu");
+	const startButton = document.getElementById("startbuttonImg");
+	if (
+		!startMenu.contains(event.target) &&
+		!startButton.contains(event.target)
+	) {
+		startMenu.style.visible = "none";
+		startButton.classList.remove("clicked");
 	}
-}
+});
 // CSS for the start menu
 const style = document.createElement("style");
 document.head.appendChild(style);
-
-// HTML structure for the start menu
-startMenu.innerHTML = `
-	<ul>
-		<li>Programs</li>
-		<li>Documents</li>
-		<li>Settings</li>
-		<li>Search</li>
-		<li>Help</li>
-		<li>Run...</li>
-	</ul>
-`;
