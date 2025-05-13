@@ -5,6 +5,7 @@ on:
     paths:
       - "imagesGrubby/**"
       - "imagesMarshal/**"
+  workflow_dispatch:
 
 jobs:
   build:
