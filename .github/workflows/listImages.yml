@@ -26,7 +26,7 @@ jobs:
           echo "var imageListGrubby = [" > scripts/imageList.js
           ls imagesGrubby/* | xargs -I {} echo "'{}'," >> scripts/imageList.js
           echo "];" >> scripts/imageList.js
-          echo "var imageListMarshal = [" > scripts/imageList.js
+          echo "var imageListMarshal = [" >> scripts/imageList.js
           ls imagesMarshal/* | xargs -I {} echo "'{}'," >> scripts/imageList.js
           echo "];" >> scripts/imageList.js
 
