@@ -15,6 +15,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Reset project files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git pull --rebase
+
       - name: Generate Image List
         run: |
           echo "var imageListGrubby = [" > scripts/imageList.js
@@ -26,9 +32,6 @@ jobs:
 
       - name: Commit and Push
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git pull --rebase
           git add scripts/imageList.js
           git commit -m "Update image list" -a
           git push
