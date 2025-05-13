@@ -3,7 +3,8 @@ name: Generate Image List
 on:
   push:
     paths:
-      - "images/**"
+      - "imagesGrubby/**"
+      - "imagesMarshal/**"
 
 jobs:
   build:
