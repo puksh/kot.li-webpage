@@ -1,4 +1,4 @@
-var imageList = [
+var imageListGrubby = [
 	"images/meow (1).webp",
 	"images/meow (10).webp",
 	"images/meow (11).webp",

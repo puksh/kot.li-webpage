@@ -1,4 +1,4 @@
-function Gallery(container) {
+function GalleryGrubby(container) {
 	const galleryContainer = document.createElement("div");
 	galleryContainer.id = "galleryContainer";
 	galleryContainer.classList.add("gallery-container");
@@ -7,7 +7,7 @@ function Gallery(container) {
 	const script = document.createElement("script");
 	script.src = "scripts/imageList.js";
 	script.onload = function () {
-		loadImages(imageList);
+		loadImages(imageListGrubby);
 	};
 	document.head.appendChild(script);
 
@@ -15,7 +15,7 @@ function Gallery(container) {
 		images.forEach((imageSrc) => {
 			const img = document.createElement("img");
 			img.src = imageSrc;
-			img.classList.add("imgGrooby");
+			img.classList.add("imgKot");
 
 			// Fetch image size
 			fetch(imageSrc)
@@ -38,8 +38,45 @@ function Gallery(container) {
 	}
 }
 
-function Shower(container) {}
+function GalleryMarshal(container) {
+	const galleryContainer = document.createElement("div");
+	galleryContainer.id = "galleryContainer";
+	galleryContainer.classList.add("gallery-container");
+	container.appendChild(galleryContainer);
 
+	const script = document.createElement("script");
+	script.src = "scripts/imageList.js";
+	script.onload = function () {
+		loadImages(imageListMarshal);
+	};
+	document.head.appendChild(script);
+
+	function loadImages(images) {
+		images.forEach((imageSrc) => {
+			const img = document.createElement("img");
+			img.src = imageSrc;
+			img.classList.add("imgKot");
+
+			// Fetch image size
+			fetch(imageSrc)
+				.then((response) => response.blob())
+				.then((blob) => {
+					const sizeInKB = (blob.size / 1024).toFixed(2); // Convert size to KB and format to 2 decimal places
+					const sizeText = document.createElement("span");
+					sizeText.classList.add("image-size");
+					sizeText.textContent = `${sizeInKB} KB`;
+					const imageContainer = document.createElement("div");
+					imageContainer.classList.add("image-container");
+					imageContainer.appendChild(img);
+					imageContainer.appendChild(sizeText);
+					galleryContainer.appendChild(imageContainer);
+				})
+				.catch((error) => console.error("Error fetching image size:", error));
+		});
+
+		galleryContainer.classList.add("loaded");
+	}
+}
 function Christitus(container) {
 	const command = 'irm "https://christitus.com/win" | iex';
 
@@ -155,8 +192,7 @@ function Settings(container) {
 	const checkboxCustomCursor = document.createElement("input");
 	checkboxCustomCursor.type = "checkbox";
 	checkboxCustomCursor.id = "checkboxCustomCursor";
-	checkboxCustomCursor.checked =
-		localStorage.getItem("isCursorEnabled") === "true";
+	checkboxCustomCursor.checked = localStorage.getItem("isCursorEnabled") === "true";
 
 	const label = document.createElement("label");
 	label.htmlFor = "checkboxCustomCursor";
@@ -171,9 +207,7 @@ function Settings(container) {
 	checkboxCustomCursor.addEventListener("change", () => {
 		const isCursorEnabled = checkboxCustomCursor.checked;
 		localStorage.setItem("isCursorEnabled", isCursorEnabled);
-		document.dispatchEvent(
-			new CustomEvent("cursorToggle", { detail: { isCursorEnabled } }),
-		);
+		document.dispatchEvent(new CustomEvent("cursorToggle", { detail: { isCursorEnabled } }));
 	});
 
 	//
