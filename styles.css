@@ -101,6 +101,8 @@ body {
 	resize: both;
 	overflow: hidden;
 	touch-action: none;
+	min-width: 200px;
+	min-height: 200px;
 }
 
 .taskbar {
